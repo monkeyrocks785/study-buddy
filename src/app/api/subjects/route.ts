@@ -13,7 +13,7 @@ export async function GET() {
     });
 
     return NextResponse.json(subjects);
-  } catch (error) {
-    return NextResponse.json({ error: 'Error fetching subjects' }, { status: 500 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message || 'Error fetching subjects' }, { status: 500 });
   }
 }

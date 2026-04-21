@@ -24,8 +24,8 @@ export async function POST(request: Request) {
     (await cookies()).set('session', session, { expires, httpOnly: true });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Registration Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }

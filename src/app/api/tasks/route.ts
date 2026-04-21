@@ -13,8 +13,8 @@ export async function GET() {
     });
 
     return NextResponse.json(tasks);
-  } catch (error) {
-    return NextResponse.json({ error: 'Error fetching tasks' }, { status: 500 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message || 'Error fetching tasks' }, { status: 500 });
   }
 }
 

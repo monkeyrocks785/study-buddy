@@ -15,8 +15,8 @@ export async function GET() {
     });
 
     return NextResponse.json(notes);
-  } catch (error) {
-    console.error('Error listing files:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Error listing notes:', error);
+    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }
