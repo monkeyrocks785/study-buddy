@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+  name     String?
+  notes    Note[]
+  tasks    Task[]
+  subjects Subject[]
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  name      String
+  subject   String
+  size      String
+  type      String
+  url       String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Task {
+  id        String   @id @default(cuid())
+  title     String
+  subject   String
+  due       String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Subject {
+  id        String @id @default(cuid())
+  name      String
+  color     String @default("#6366f1")
+  progress  Int    @default(0)
+  user      User   @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@unique([name, userId])
+}
